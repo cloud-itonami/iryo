@@ -1,7 +1,7 @@
 (ns iryo.methods.test-e2e
   (:require [clojure.test :refer [deftest is]]
             [iryo.methods.agent :as agent]
-            [cheshire.core :as json]))
+            [json.compat :as json]))
 
 (def ENCOUNTER
   {"futanWari" 0.3
