@@ -2,7 +2,7 @@
 ;; iryo 医療 — claim persistence (kotoba Datom log) tests.
 ;; Run: bb -cp 20-actors:20-actors/kotodama/src 20-actors/iryo/methods/test_kotoba.cljc
 (ns iryo.methods.test-kotoba
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.text] [clojure.test :refer [deftest is testing run-tests]]
             [clojure.java.io :as io]
             [iryo.methods.masters :as masters]
             [iryo.methods.rezept :as rezept]
@@ -46,7 +46,7 @@
         d2 [(kotoba/add "iryo-claim:abc" ":iryo.claim/total-ten" 999)]]
     (is (= (kotoba/tx-cid d1 "") (kotoba/tx-cid d1 "")))
     (is (not= (kotoba/tx-cid d1 "") (kotoba/tx-cid d2 "")))
-    (is (clojure.string/starts-with? (kotoba/tx-cid d1 "") "b"))))
+    (is (kotoba.lang.text/starts-with? (kotoba/tx-cid d1 "") "b"))))
 
 ;; ── claim-datoms shape ────────────────────────────────────────────────────────
 (deftest claim-datoms-shape
@@ -63,7 +63,7 @@
       (is (contains? attrs ":iryo.claim/total-iryohi-yen"))
       (is (contains? attrs ":iryo.claim/patient-pay-yen")))
     ;; has line datoms
-    (is (some #(clojure.string/starts-with? (second %) "iryo-line:") ds))))
+    (is (some #(kotoba.lang.text/starts-with? (second %) "iryo-line:") ds))))
 
 ;; ── PHI refusal invariant (G2 — CRITICAL, do NOT weaken) ────────────────────
 (deftest phi-refused-on-name-attr
@@ -116,7 +116,7 @@
         ds (kotoba/claim-datoms "claim-did-check" did rez rows)
         did-datoms (filter #(= ":iryo.claim/patient-did" (nth % 2)) ds)]
     (is (= 1 (count did-datoms)))
-    (is (clojure.string/starts-with? (nth (first did-datoms) 3) "did:web:"))))
+    (is (kotoba.lang.text/starts-with? (nth (first did-datoms) 3) "did:web:"))))
 
 ;; ── persist! roundtrip ────────────────────────────────────────────────────────
 (deftest persist-roundtrip
@@ -176,7 +176,7 @@
             did "did:web:patient.iryo.etzhayyim.com:testpseudo"
             _ (kotoba/persist! "claim-001" did rez rows p "tx-1" "2026-06-21")]
         ;; tamper with the log
-        (spit p (clojure.string/replace (slurp p) "total-ten" "tampered-ten"))
+        (spit p (kotoba.lang.text/replace (slurp p) "total-ten" "tampered-ten"))
         (let [v (kotoba/verify-chain p)]
           (is (not (:ok v)))))
       (finally (io/delete-file p true)))))

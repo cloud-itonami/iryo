@@ -1,5 +1,5 @@
 (ns iryo.methods.karte
-  (:require [clojure.string :as str])
+  (:require [kotoba.lang.text :as str])
   (:import [java.security MessageDigest]))
 
 (def phi-fields
@@ -46,12 +46,12 @@
 
 (defn assert-no-phi! [meta]
   (doseq [[k _] meta]
-    (when (contains? phi-fields (str/lower-case (name k)))
+    (when (contains? phi-fields (str/lower (name k)))
       (phi-leak! (str "plaintext PHI field in public meta: " k)))
     (when (= k :diagnoses)
       (doseq [d (get meta k)]
         (doseq [[dk _] d]
-          (when (contains? phi-fields (str/lower-case (name dk)))
+          (when (contains? phi-fields (str/lower (name dk)))
             (phi-leak! (str "plaintext PHI field in diagnosis: " dk))))))))
 
 (defn- sha256-hex [s]

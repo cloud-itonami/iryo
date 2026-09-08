@@ -25,7 +25,7 @@
   a patient/karte arg).
 
   No-server-key: pure functions + local state only."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             #?(:clj [clojure.java.io :as io])
             [iryo.methods.masters :as masters]))
 

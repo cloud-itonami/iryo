@@ -22,7 +22,7 @@
 
   No-server-key: no network I/O (live engine bridge is operator-gated, G3).
   data/ is gitignored — local PHI-free audit log only."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             #?(:clj [clojure.java.io :as io])))
 
 ;; ── PHI guard (G2) ──────────────────────────────────────────────────────────
@@ -32,7 +32,7 @@
     "hihokensha"}) ;; insurer member number is scoped-PHI; keep off the public log
 
 (defn phi? [s]
-  (let [low (str/lower-case (str s))]
+  (let [low (str/lower (str s))]
     (or (contains? phi-patterns low)
         ;; flag any attribute whose local name matches a PHI keyword
         (some #(str/includes? low (str "/" %)) phi-patterns))))

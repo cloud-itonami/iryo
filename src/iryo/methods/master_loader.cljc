@@ -1,5 +1,5 @@
 (ns iryo.methods.master-loader
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [clojure.java.io :as io]
             [iryo.methods.masters :as masters]))
 

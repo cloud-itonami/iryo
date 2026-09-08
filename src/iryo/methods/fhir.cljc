@@ -1,4 +1,5 @@
-(ns iryo.methods.fhir)
+(ns iryo.methods.fhir
+  (:require [kotoba.lang.text]))
 
 (def icd10-jp-system "urn:oid:1.2.392.200119.4.504.4")
 (def shinryo-system "urn:oid:1.2.392.200119.4.403.1")
@@ -6,7 +7,7 @@
 (def hoken-system "urn:oid:1.2.392.200119.4.204")
 
 (defn- tail [did]
-  (last (clojure.string/split did #":")))
+  (last (kotoba.lang.text/split did #":")))
 
 (defn- condition-status [outcome]
   (get {"治癒" "resolved" "軽快" "remission" "中止" "inactive" "死亡" "inactive"} outcome "active"))
