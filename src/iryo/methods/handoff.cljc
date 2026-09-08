@@ -71,7 +71,7 @@
     - actual レセプト計算 from the referenced encounter (that is
       `iryo.methods.agent/handle-rezept`, unchanged — this boundary only governs
       whether the intake is even accepted into iryo's queue)."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [clojure.set :as set]
             [iryo.methods.karte :as karte])
   (:import [java.time Instant]

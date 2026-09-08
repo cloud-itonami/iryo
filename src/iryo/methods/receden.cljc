@@ -1,5 +1,5 @@
 (ns iryo.methods.receden
-  (:require [clojure.string :as str])
+  (:require [kotoba.lang.text :as str])
   (:import [java.time LocalDate]))
 
 (def ^:private eras

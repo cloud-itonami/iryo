@@ -5,7 +5,7 @@
             [iryo.methods.receden :as receden]
             [iryo.methods.fhir :as fhir]
             [iryo.methods.handoff :as handoff]
-            [clojure.string :as str]))
+            [kotoba.lang.text :as str]))
 
 (def intent "member-principal-claim-substrate; non-adjudicating")
 

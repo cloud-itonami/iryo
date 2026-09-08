@@ -1,5 +1,5 @@
 (ns iryo.methods.rezept
-  (:require [iryo.methods.masters :as masters]
+  (:require [kotoba.lang.text] [iryo.methods.masters :as masters]
             [iryo.methods.insurance :as insurance]
             [iryo.methods.kogaku :as kogaku]))
 
@@ -58,7 +58,7 @@
         ;; 2) 薬剤料
         drug-lines (mapv (fn [rx]
                            (let [ten (compute-drug-ten rx m)
-                                 names (clojure.string/join "+" (map #(:name (masters/drug m (:code %))) (:drugs rx)))
+                                 names (kotoba.lang.text/join "+" (map #(:name (masters/drug m (:code %))) (:drugs rx)))
                                  label (if (seq (or (:label rx) "")) (:label rx) names)
                                  days (max 1 (or (:days rx) 1))
                                  unit-ten (int (/ ten days))]

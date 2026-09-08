@@ -1,5 +1,5 @@
 (ns iryo.methods.test-master-loader
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.lang.text] [clojure.test :refer [deftest is testing]]
             [iryo.methods.master-loader :as ml]
             [iryo.methods.masters :as masters]
             [clojure.java.io :as io])
@@ -39,7 +39,7 @@
   (let [d (make-temp-dir)
         ;; Build a row with enough columns: idx 2=code, idx 4=name, idx 8=shikibetsu, idx 22=value
         row (into [] (concat ["1" "S" "777777710" "" "手技名"] (repeat 3 "") ["60"] (repeat 13 "") ["456"]))]
-    (write-file d "s_test.csv" (clojure.string/join "," row))
+    (write-file d "s_test.csv" (kotoba.lang.text/join "," row))
     (let [out (ml/load-mhlw-shinryo (str d "/s_test.csv")
                                      {:code 2 :name 4 :value 22 :shikibetsu 8 :unit -1 :icd10 -1})]
       (is (= 456 (get-in out ["777777710" "ten"])))

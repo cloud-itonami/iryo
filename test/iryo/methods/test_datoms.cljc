@@ -2,7 +2,7 @@
 ;; iryo 医療 — masters-as-EAVT-Datoms tests.
 ;; Run: bb -cp 20-actors:20-actors/kotodama/src 20-actors/iryo/methods/test_datoms.cljc
 (ns iryo.methods.test-datoms
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.text] [clojure.test :refer [deftest is testing run-tests]]
             [clojure.java.io :as io]
             [iryo.methods.masters :as masters]
             [iryo.methods.datoms :as datoms]))
@@ -119,7 +119,7 @@
         d2 [(datoms/add "iryo-shinryo:111000110" ":iryo.shinryo/ten" 300)]]
     (is (= (datoms/tx-cid d1 "") (datoms/tx-cid d1 "")))
     (is (not= (datoms/tx-cid d1 "") (datoms/tx-cid d2 "")))
-    (is (clojure.string/starts-with? (datoms/tx-cid d1 "") "b"))))
+    (is (kotoba.lang.text/starts-with? (datoms/tx-cid d1 "") "b"))))
 
 ;; ── Persist + verify-chain ───────────────────────────────────────────────────
 (deftest persist-masters-roundtrip-and-idempotent
@@ -145,7 +145,7 @@
       (let [m (load-m)]
         (datoms/persist-masters! m p "t-masters-1" "2026-06-21")
         ;; tamper: mutate a point value in the log
-        (spit p (clojure.string/replace (slurp p) ":iryo.shinryo/ten" ":iryo.shinryo/tampered"))
+        (spit p (kotoba.lang.text/replace (slurp p) ":iryo.shinryo/ten" ":iryo.shinryo/tampered"))
         (let [v (datoms/verify-chain p)]
           (is (not (:ok v)))))
       (finally (io/delete-file p true)))))
