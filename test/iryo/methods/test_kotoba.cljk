@@ -1,6 +1,6 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; iryo 医療 — claim persistence (kotoba Datom log) tests.
-;; Run: bb -cp 20-actors:20-actors/kotodama/src 20-actors/iryo/methods/test_kotoba.cljc
+;; Run: kbb -cp 20-actors:20-actors/kotodama/src 20-actors/iryo/methods/test_kotoba.cljc
 (ns iryo.methods.test-kotoba
   (:require [kotoba.lang.text] [clojure.test :refer [deftest is testing run-tests]]
             [clojure.java.io :as io]

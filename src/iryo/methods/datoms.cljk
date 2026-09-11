@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; iryo 医療 — masters as EAVT Datoms (content-addressed kotoba log).
 (ns iryo.methods.datoms
   "datoms.cljc — iryo 医療 masters-as-EAVT-Datoms layer (ADR-2606074000).

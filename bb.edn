@@ -1,1 +1,1 @@
-{:tasks {test (shell "clojure -M -m iryo.test-runner") audit (load-file "scripts/audit.cljk")}}
+{:tasks {test (shell "kbb -M -m iryo.test-runner") audit (load-file "scripts/audit.cljk")}}
