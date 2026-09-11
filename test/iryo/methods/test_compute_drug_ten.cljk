@@ -1,6 +1,6 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; iryo 医療 — validation of compute-drug-ten (薬剤料 point computation).
-;; Run:  bb --classpath 20-actors 20-actors/iryo/methods/test_compute_drug_ten.cljc
+;; Run:  kbb --classpath 20-actors 20-actors/iryo/methods/test_compute_drug_ten.cljc
 (ns iryo.methods.test-compute-drug-ten
   "Validation of compute-drug-ten — the 薬剤料 (drug-cost) point computation. It sums a
   prescription's drug costs (薬価 × 数量), converts the per-day yen total to points via

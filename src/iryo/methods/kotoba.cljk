@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; iryo 医療 — claim/レセ電 persistence on the append-only kotoba Datom log.
 (ns iryo.methods.kotoba
   "kotoba.cljc — iryo 医療 append-only BILLING HISTORY writer (PHI-free)
