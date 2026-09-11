@@ -2,7 +2,7 @@
 
 EDN is canonical in `manifest.edn` and `data/`; BPMN and JSON mirrors live under `wire/`.
 Runtime/tests are Clojure/CLJC. Go/TinyGo, Python, and shell are deprecated and pruned.
-Run `clojure -M -m iryo.test-runner` and `bb scripts/audit.clj`.
+Run `clojure -M -m iryo.test-runner` and `bb scripts/audit.cljk`.
 
 Japan 国内向けの **レセプト計算 + レセ電(レセプト電算処理システム)生成 + FHIR claim** エンジン。
 `karute` 電子カルテ (EMR) の **請求側カウンターパート** — karute が暗号化された診療録を保持し、
