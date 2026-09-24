@@ -1,9 +1,8 @@
 (ns iryo.methods.test-handoff
-  (:require [clojure.test :refer [deftest is testing]]
-            [clojure.set :as set]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing]]
+            [kotoba.lang.coll :as set]
             [iryo.methods.handoff :as handoff])
-  (:import [java.security KeyPairGenerator Signature]
-           [java.util Base64]))
+  (:import [java.security KeyPairGenerator Signature]))
 
 (def NOW "2026-07-08T00:00:00Z")
 
@@ -336,10 +335,10 @@
   (let [s (doto (Signature/getInstance "Ed25519")
             (.initSign private-key)
             (.update message-bytes))]
-    (.encodeToString (Base64/getEncoder) (.sign s))))
+    (kbytes/base64-encode (.sign s))))
 
 (defn- b64 [^bytes bytes]
-  (.encodeToString (Base64/getEncoder) bytes))
+  (kbytes/base64-encode bytes))
 
 (defn- sign-capability
   "Real Ed25519 sign of `cap` (a capability map WITHOUT \"signature\") with

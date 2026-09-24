@@ -1,13 +1,11 @@
 (ns iryo.methods.test-master-loader
-  (:require [kotoba.lang.text] [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.io :as kio] [kotoba.lang.text] [clojure.test :refer [deftest is testing]]
             [iryo.methods.master-loader :as ml]
             [iryo.methods.masters :as masters]
-            [clojure.java.io :as io])
-  (:import [java.nio.file Files]
-           [java.nio.file.attribute FileAttribute]))
+            [clojure.java.io :as io]))
 
 (defn- make-temp-dir []
-  (str (Files/createTempDirectory "iryo-test" (into-array FileAttribute []))))
+  (str (kio/temp-dir "iryo-test")))
 
 (defn- write-file [dir name text]
   (spit (str dir "/" name) text))
