@@ -1,5 +1,5 @@
 (ns iryo.methods.agent
-  (:require [iryo.methods.masters :as masters]
+  (:require [kotoba.lang.error :as kerror] [iryo.methods.masters :as masters]
             [iryo.methods.rezept :as rezept]
             [iryo.methods.karte :as karte]
             [iryo.methods.receden :as receden]
@@ -165,6 +165,6 @@
         (let [rez-state (cond-> {"encounter" encounter} masters (assoc "masters" masters))
               rez (handle-rezept rez-state)]
           (assoc result "rezeptPreview" (get rez "result")))
-        (catch #?(:clj clojure.lang.ExceptionInfo :cljs ExceptionInfo) e
+        (catch kerror/ExceptionInfo e
           (assoc result "rezeptPreviewError" (ex-message e))))
       result)))

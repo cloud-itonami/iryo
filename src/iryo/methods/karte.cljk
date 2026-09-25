@@ -1,5 +1,5 @@
 (ns iryo.methods.karte
-  (:require [kotoba.lang.text :as str])
+  (:require [kotoba.bytes :as kbytes] [kotoba.lang.text :as str])
   (:import [java.security MessageDigest]))
 
 (def phi-fields
@@ -56,7 +56,7 @@
 
 (defn- sha256-hex [s]
   (let [md (MessageDigest/getInstance "SHA-256")
-        bytes (.digest md (.getBytes s "UTF-8"))]
+        bytes (.digest md (kbytes/utf8-bytes s))]
     (apply str (map #(format "%02x" (bit-and % 0xff)) bytes))))
 
 (defn rotating-pseudonym-did [stable-secret period]

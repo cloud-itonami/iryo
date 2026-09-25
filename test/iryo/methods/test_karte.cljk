@@ -1,5 +1,5 @@
 (ns iryo.methods.test-karte
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is]]
             [iryo.methods.karte :as karte]))
 
 (defn- make-test-karte []
@@ -17,15 +17,15 @@
     (is (not (contains? meta :dob)))))
 
 (deftest test-assert-no-phi-rejects-smuggled-plaintext
-  (is (thrown? clojure.lang.ExceptionInfo
+  (is (thrown? kerror/ExceptionInfo
                (karte/assert-no-phi! {:patient-did "did:.." :name "山田太郎"}))))
 
 (deftest test-assert-no-phi-rejects-phi-in-diagnosis
-  (is (thrown? clojure.lang.ExceptionInfo
+  (is (thrown? kerror/ExceptionInfo
                (karte/assert-no-phi! {:diagnoses [{:icd10 "I10" :note "本人談"}]}))))
 
 (deftest test-soap-note-requires-encrypted-cid
-  (is (thrown? clojure.lang.ExceptionInfo
+  (is (thrown? kerror/ExceptionInfo
                (karte/make-soap-note "2026-06-07" "did:web:dr" "")))
   (let [ok (karte/make-soap-note "2026-06-07" "did:web:dr" "bafy...soap")]
     (is (seq (:encrypted-cid ok)))))

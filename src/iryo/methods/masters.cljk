@@ -1,6 +1,6 @@
 (ns iryo.methods.masters
-  (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]))
+  (:require [kotoba.lang.edn :as edn]
+            [kotoba.io :as io]))
 
 (defn- seed-path []
   "data/seed/masters.edn")

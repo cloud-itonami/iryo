@@ -345,7 +345,7 @@
   `private-key`, using the exact same canonicalization `signature-gate`
   verifies against. Returns cap with a real \"signature\" map attached."
   [cap private-key key-id]
-  (let [payload-bytes (.getBytes (handoff/canonicalize-capability-payload cap) "UTF-8")]
+  (let [payload-bytes (kbytes/utf8-bytes (handoff/canonicalize-capability-payload cap))]
     (assoc cap "signature" {"alg" "ed25519" "value" (sign-b64 private-key payload-bytes) "keyId" key-id})))
 
 (deftest test-valid-ed25519-signature-is-accepted
