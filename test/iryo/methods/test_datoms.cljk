@@ -3,7 +3,7 @@
 ;; Run: kbb -cp 20-actors:20-actors/kotodama/src 20-actors/iryo/methods/test_datoms.cljc
 (ns iryo.methods.test-datoms
   (:require [kotoba.lang.text] [clojure.test :refer [deftest is testing run-tests]]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [iryo.methods.masters :as masters]
             [iryo.methods.datoms :as datoms]))
 

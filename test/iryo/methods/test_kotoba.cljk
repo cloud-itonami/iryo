@@ -2,8 +2,8 @@
 ;; iryo 医療 — claim persistence (kotoba Datom log) tests.
 ;; Run: kbb -cp 20-actors:20-actors/kotodama/src 20-actors/iryo/methods/test_kotoba.cljc
 (ns iryo.methods.test-kotoba
-  (:require [kotoba.lang.text] [clojure.test :refer [deftest is testing run-tests]]
-            [clojure.java.io :as io]
+  (:require [kotoba.lang.error :as kerror] [kotoba.lang.text] [clojure.test :refer [deftest is testing run-tests]]
+            [kotoba.io :as io]
             [iryo.methods.masters :as masters]
             [iryo.methods.rezept :as rezept]
             [iryo.methods.receden :as receden]
@@ -68,23 +68,23 @@
 ;; ── PHI refusal invariant (G2 — CRITICAL, do NOT weaken) ────────────────────
 (deftest phi-refused-on-name-attr
   (let [phi-datom [(kotoba/add "iryo-claim:x" ":iryo.claim/name" "田中太郎")]]
-    (is (thrown? clojure.lang.ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
+    (is (thrown? kerror/ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
 
 (deftest phi-refused-on-dob-attr
   (let [phi-datom [(kotoba/add "iryo-claim:x" ":iryo.claim/dob" "1975-01-01")]]
-    (is (thrown? clojure.lang.ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
+    (is (thrown? kerror/ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
 
 (deftest phi-refused-on-mrn-attr
   (let [phi-datom [(kotoba/add "iryo-claim:x" ":iryo.claim/mrn" "MRN-12345")]]
-    (is (thrown? clojure.lang.ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
+    (is (thrown? kerror/ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
 
 (deftest phi-refused-on-soap-free-text-attr
   (let [phi-datom [(kotoba/add "iryo-claim:x" ":iryo.claim/soap_s" "主訴: 頭痛")]]
-    (is (thrown? clojure.lang.ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
+    (is (thrown? kerror/ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
 
 (deftest phi-refused-on-hihokensha-attr
   (let [phi-datom [(kotoba/add "iryo-claim:x" ":iryo.claim/hihokensha" "12345678")]]
-    (is (thrown? clojure.lang.ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
+    (is (thrown? kerror/ExceptionInfo (kotoba/assert-no-phi! phi-datom)))))
 
 (deftest phi-predicate-detects-phi-substrings
   ;; "/name" in attribute path

@@ -2,7 +2,7 @@
   (:require [kotoba.io :as kio] [kotoba.lang.text] [clojure.test :refer [deftest is testing]]
             [iryo.methods.master-loader :as ml]
             [iryo.methods.masters :as masters]
-            [clojure.java.io :as io]))
+            [kotoba.io :as io]))
 
 (defn- make-temp-dir []
   (str (kio/temp-dir "iryo-test")))

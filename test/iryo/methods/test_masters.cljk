@@ -1,5 +1,5 @@
 (ns iryo.methods.test-masters
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is testing]]
             [iryo.methods.masters :as masters]))
 
 (deftest test-seed-loads
@@ -17,7 +17,7 @@
 
 (deftest test-shinryo-not-found-throws
   (let [m (masters/load)]
-    (is (thrown? clojure.lang.ExceptionInfo (masters/shinryo m "999999999")))))
+    (is (thrown? kerror/ExceptionInfo (masters/shinryo m "999999999")))))
 
 (deftest test-drug-lookup
   (let [m (masters/load)
@@ -27,7 +27,7 @@
 
 (deftest test-drug-not-found-throws
   (let [m (masters/load)]
-    (is (thrown? clojure.lang.ExceptionInfo (masters/drug m "000000000")))))
+    (is (thrown? kerror/ExceptionInfo (masters/drug m "000000000")))))
 
 (deftest test-counts
   (let [m (masters/load)

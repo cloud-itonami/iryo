@@ -71,7 +71,7 @@
     - actual レセプト計算 from the referenced encounter (that is
       `iryo.methods.agent/handle-rezept`, unchanged — this boundary only governs
       whether the intake is even accepted into iryo's queue)."
-  (:require [kotoba.bytes :as kbytes] [kotoba.lang.text :as str]
+  (:require [kotoba.lang.error :as kerror] [kotoba.bytes :as kbytes] [kotoba.lang.text :as str]
             [kotoba.lang.coll :as set]
             [iryo.methods.karte :as karte])
   (:import [java.time Instant]
@@ -380,7 +380,7 @@
 
         :else
         (try
-          (let [payload-bytes (.getBytes ^String (canonicalize-capability-payload capability) "UTF-8")
+          (let [payload-bytes (kbytes/utf8-bytes ^String (canonicalize-capability-payload capability))
                 sig-bytes (kbytes/base64-decode-bytes ^String (get sig "value"))
                 pub-bytes (kbytes/base64-decode-bytes ^String granter-public-key-b64)]
             (if (verify-ed25519-signature pub-bytes payload-bytes sig-bytes)
@@ -390,7 +390,7 @@
             {:ok? false :reason (str "consent capability signature could not be verified: " (ex-message e))}))))))
 
 (defn- sha256-hex [^String s]
-  (let [b (.digest (MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8"))]
+  (let [b (.digest (MessageDigest/getInstance "SHA-256") (kbytes/utf8-bytes s))]
     (apply str (map #(format "%02x" (bit-and (int %) 0xff)) b))))
 
 (defn- claim-ref [request]
@@ -437,5 +437,5 @@
         (if (:ok? gate)
           {"ack" true "iryoStatus" "pending" "iryoClaimRef" (claim-ref request) "intent" intent}
           {"ack" false "iryoStatus" "needs-info" "error" (:reason gate) "intent" intent}))
-      (catch #?(:clj clojure.lang.ExceptionInfo :cljs ExceptionInfo) e
+      (catch kerror/ExceptionInfo e
         {"ack" false "iryoStatus" "needs-info" "error" (ex-message e) "intent" intent}))))
