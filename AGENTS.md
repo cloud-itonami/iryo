@@ -1,4 +1,4 @@
-# 20-actors/iryo — CLAUDE.md
+# 20-actors/iryo — AGENTS.md
 
 ## Identity
 

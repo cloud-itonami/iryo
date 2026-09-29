@@ -139,7 +139,7 @@
   already-resolved `\"encounter\"`, automatically wires the accepted intake
   through to the real `handle-rezept` computation — closing the previously
   missing 'ingest-billing cell -> rezept cell' connection the architecture
-  diagram (20-actors/iryo/CLAUDE.md) describes. The rezept result is attached
+  diagram (20-actors/iryo/AGENTS.md) describes. The rezept result is attached
   under `\"rezeptPreview\"`; `iryoStatus` stays `\"pending\"` regardless (this
   is a draft preview, not an adjudication — G3/G5 unchanged).
 
